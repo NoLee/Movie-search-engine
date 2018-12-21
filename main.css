@@ -1,0 +1,53 @@
+body {
+    font-family: Calibri;
+    background-color: #222233;
+    color:#A8D7FF;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+h3 {
+    text-align: center;
+    font-weight: 700;
+}
+
+h4 {
+    font-weight: 700;
+}
+
+input[type=text] {
+    /* width: auto; */
+    border: 3px solid rgba(128,128,128, 0.2);
+    background-color: #222233;
+}
+
+input[type=text]:focus {
+    /* width: auto; */
+    background-color: rgba(168, 215, 255, 0);
+    border: 3px solid rgba(168, 215, 255, 0.7);
+    color:#A8D7FF;
+}
+
+.movie-container {
+    padding: 20px;
+    margin: 2px;
+    /* border with transparent color so it occupies space (useful for :hover to not move around elements) */
+    border: 3px solid rgba(128,128,128, 0.2);
+    border-radius: 5px;
+}
+
+.movie-container:hover {
+    border: 3px solid rgba(128,128,128, 0.5);
+    cursor: pointer;
+}
+
+/* .thumbnail-img {
+    width: 180px;
+} */
+
+.selected {
+    color: darkgoldenrod;
+}
