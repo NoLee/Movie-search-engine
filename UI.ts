@@ -1,18 +1,12 @@
-//handlebars template functions
-
-// Init a timeout variable to be used below
-var timeoutID:number;
-
-// Listen for keystroke events in the search field
-$("#movie-query").keyup( function () {
-    // Clear the timeout if it has already been set
-    clearTimeout(timeoutID);
-
-    let inputElement = <HTMLInputElement> this;
-
-    // Make a new timeout
-    timeoutID = setTimeout(function () {
-        // here we will call the "XMLHttpRequest"
-        console.log('Input Value:', inputElement.value);
-    }, 700);
-});
+/**
+ * Updates the HTML Handlebars template for the movie search
+ * @param data The JSON object returned by themovieDB API
+ * @param method (optional) If equals "append", then we append the data instead of updating
+ */
+export function changeMovieTemplate(data:any, method?:string):void {    
+    let source   = $("#movie-template").html();
+    let template = Handlebars.compile(source);      
+    var theCompiledHtml = template(data);
+    if (method === "append") $('#handlebars-movie-container').append(theCompiledHtml);
+    else $('#handlebars-movie-container').html(theCompiledHtml);
+}
