@@ -1,14 +1,11 @@
 <!doctype html>
-
 <html>
 <head>
-
   <meta charset="utf-8">
-  <title>Movie Search</title>
-  <meta name="description" content="Movie Search">
+  <title>The Movie Database</title>
+  <meta name="description" content="The Movie Database">
   <meta name="author" content="mpentarakis">
 
-  <!-- <link rel="stylesheet"  href="bootstrap-4.1.3-dist/css/bootstrap.min.css">  -->
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="main.css">
@@ -24,74 +21,38 @@
     </div>
   </div>
 
-  <div class="container mt-5">
-      <div class="row no-gutters">
-          <div class="col-md-6 col-lg-4">  
-            <div class="movie-container">
-              <h3> Movie title</h3>
-              <img src="https://image.tmdb.org/t/p/w500/kSBXou5Ac7vEqKd97wotJumyJvU.jpg" class="img-fluid mx-auto d-block" alt="movie image">
-              <h4> Description: </h4>
-              <p> Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies. </p>
-              
-              <h4> Rating: </h4>
-              <i class="fas fa-star selected"></i>
-              <i class="fas fa-star selected"></i>
-              <i class="fas fa-star selected"></i>
-              <i class="fas fa-star selected"></i>
-              <i class="fas fa-star selected"></i>
-              <i class="fas fa-star selected"></i>              
-              <i class="fas fa-star selected"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>   
-              </div>           
-            </div>
+  <script id="movie-template" type="text/x-handlebars-template">
+        {{#results}}
+        <div class="col-md-6 col-lg-4">  
+          <div class="movie-container">
+            <h3> {{title}}</h3>
+            {{#if poster_path}} 
+              <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="img-fluid mx-auto d-block" alt="{{title}} post"> 
+            {{else}}
+              <img src="img/no-poster.jpg" class="img-fluid mx-auto d-block" alt="No movie poster"> 
+            {{/if}}
 
-            <div class="col-md-6 col-lg-4">  
-                <div class="movie-container">
-                  <h3> Movie title</h3>
-                  <img src="https://image.tmdb.org/t/p/w500/kSBXou5Ac7vEqKd97wotJumyJvU.jpg" class="img-fluid mx-auto d-block" alt="movie image">
-                  <h4> Description: </h4>
-                  <p> Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies. </p>
-                  
-                  <h4> Rating: </h4>
-                  <i class="fas fa-star selected"></i>
-                  <i class="fas fa-star selected"></i>
-                  <i class="fas fa-star selected"></i>
-                  <i class="fas fa-star selected"></i>
-                  <i class="fas fa-star selected"></i>
-                  <i class="fas fa-star selected"></i>              
-                  <i class="fas fa-star selected"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>   
-                  </div>           
-                </div>
+            <h4> Rating: </h4>
+            {{#star_rating}}
+              <i class="fas fa-star stars {{this}}"></i>  
+            {{/star_rating}}
+            ({{vote_average}}/10)
 
-                <div class="col-md-6 col-lg-4">  
-                    <div class="movie-container">
-                      <h3> Movie title</h3>
-                      <img src="https://image.tmdb.org/t/p/w500/kSBXou5Ac7vEqKd97wotJumyJvU.jpg" class="img-fluid mx-auto d-block" alt="movie image">
-                      <h4> Description: </h4>
-                      <p> Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies. </p>
-                      
-                      <h4> Rating: </h4>
-                      <i class="fas fa-star selected"></i>
-                      <i class="fas fa-star selected"></i>
-                      <i class="fas fa-star selected"></i>
-                      <i class="fas fa-star selected"></i>
-                      <i class="fas fa-star selected"></i>
-                      <i class="fas fa-star selected"></i>              
-                      <i class="fas fa-star selected"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>   
-                      </div>           
-                    </div>
+            <h4> Description: </h4>
+            <p> {{overview}}</p>
+          </div>           
         </div>
+        {{/results}}
+  </script>
+  
+<div class="container mt-5">
+    <div id="handlebars-movie-container" class="row no-gutters">
     </div>
+</div>
+
 </body>
 <script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/handlebars/dist/handlebars.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script> 
 <script src="bundle.js"></script>
 </html>
