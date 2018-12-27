@@ -1,7 +1,9 @@
 # Movie search engine
+### This is version 1, in which you can only see bulk movie details after a search. In later versions you could check each individual movie for more details.
 
 A simple website that acts as a search engine for movies.
 Movie information taken by the themoviedb.org API
+
 
 Instructions:
 - Download dependencies with with "npm install" (bootstrap, jquery and handlebars)
