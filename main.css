@@ -31,6 +31,14 @@ input[type=text]:focus {
     color:#A8D7FF;
 }
 
+.loading {
+    font-size: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
 .movie-container {
     padding: 20px;
     margin: 2px;
@@ -39,10 +47,10 @@ input[type=text]:focus {
     border-radius: 5px;
 }
 
-/* .movie-container:hover {
+.movie-container:hover {
     border: 3px solid rgba(128,128,128, 0.5);
     cursor: pointer;
-} */
+}
 
 .stars:not(.selected) {
     color: grey;
