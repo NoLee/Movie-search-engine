@@ -7,10 +7,13 @@ var query:string = ":popular";
 var noScroll = false;
 
 // Onload fetch default movies
-window.onload = () => selectRequest(query);
+window.onload = () => {
+    history.pushState(query, "");
+    selectRequest(query);
+}
 
 // If reached the bottom of the page, fetch next page and APPEND results
-$(window).scroll(function() {
+$(window).scroll(function() {    
     let winScroll = $(window).scrollTop();
     let winHeight = $(window).height();
     let docHeight = $(document).height();    
@@ -37,12 +40,11 @@ $("#movie-query").keyup( function() {
     }, 700);
 });
 
-
 /**
  * Select the type of request (by movie name or by filter) and then send it with AJAX
  * @param contentMethodSetting (optional) if it is set to "append" it does not replace the previous results
  */
-function selectRequest(q:string, contentMethodSetting?:string) {
+function selectRequest(q:string, contentMethodSetting?:string) {    
     if ( q[0] === ":" ) { 
         requests.requestMovieByFilter(q.slice(1),page,contentMethodSetting); 
     }
@@ -52,11 +54,23 @@ function selectRequest(q:string, contentMethodSetting?:string) {
 }
 
 export function addEventListenerMovies() {
+    $(".movie-container").off("click");
     $(".movie-container").click( function() {
         console.log("click");
         noScroll = true;
         let id = this.getAttribute("movie-id");
+        history.pushState(query, "", id);
+        console.log(window.history);
         query = ":"+id;        
         selectRequest(query);
     });
 }
+
+window.addEventListener('popstate', function(e) {
+    page = 1;
+    noScroll = false; //this needs fixing? maybe
+    // WINDOW HISTORY ON BACK HAS PREVIOUS STATE, NEEDS TO SEE ONE STEP FORWARD
+    console.log(window.history)
+    query = e.state;
+    selectRequest(query);
+  });
