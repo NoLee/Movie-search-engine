@@ -10,6 +10,11 @@ h1 {
     margin: 20px;
 }
 
+h2 {
+    text-align: center;
+    font-weight: 700;
+}
+
 h3 {
     text-align: center;
     font-weight: 700;
@@ -59,4 +64,20 @@ input[type=text]:focus {
 
 .stars.selected {
     color: darkgoldenrod;
+}
+
+ul {
+    padding: 0;
+}
+
+li.genres {
+    display: inline;
+    margin-right: 10px;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: rgba(168, 215, 255, 0.2);
+}
+
+.movie-title {
+    /* font-size */
 }

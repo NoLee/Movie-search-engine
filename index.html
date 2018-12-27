@@ -23,29 +23,59 @@
 
   <script id="movie-template" type="text/x-handlebars-template">
         {{#results}}
-        <div class="col-md-6 col-lg-4">  
-          <div class="movie-container">
-            <h3> {{title}}</h3>
-            {{#if poster_path}} 
-              <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="img-fluid mx-auto d-block" alt="{{title}} post"> 
-            {{else}}
-              <img src="img/no-poster.jpg" class="img-fluid mx-auto d-block" alt="No movie poster"> 
-            {{/if}}
+          <div class="col-md-6 col-lg-4">  
+            <div movie-id="{{id}}" class="movie-container">
+              <h3> {{title}}</h3>
+              {{#if poster_path}} 
+                <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="img-fluid mx-auto d-block" alt="{{title}} poster"> 
+              {{else}}
+                <img src="img/no-poster.jpg" class="img-fluid mx-auto d-block" alt="No movie poster"> 
+              {{/if}}
 
-            <h4> Rating: </h4>
-            {{#star_rating}}
-              <i class="fas fa-star stars {{this}}"></i>  
-            {{/star_rating}}
-            ({{vote_average}}/10)
+              <h4> Rating: </h4>
+              {{#star_rating}}
+                <i class="fas fa-star stars {{this}}"></i>  
+              {{/star_rating}}
+              ({{vote_average}}/10)
 
-            <h4> Description: </h4>
-            <p> {{overview}}</p>
-          </div>           
-        </div>
+              <h4> Description: </h4>
+              <p> {{overview}}</p>
+            </div>           
+          </div>
+        {{else}} <!-- We have a single movie-->
+        <div class="col-12"> 
+          <h2 class="movie-title"> {{title}}</h3> 
+          <div class="row ">            
+            <div class="col-5">                 
+              {{#if poster_path}} 
+                <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="img-fluid mx-auto d-block" alt="{{title}} poster"> 
+              {{else}}
+                <img src="img/no-poster.jpg" class="img-fluid mx-auto d-block" alt="No movie poster"> 
+              {{/if}}
+            </div>
+            <div class="col-7"> 
+              <h4> Description: </h4>
+              <p> {{overview}}</p>
+              <h4> Rating: </h4>
+              {{#star_rating}}
+                <i class="fas fa-star stars {{this}}"></i>  
+              {{/star_rating}}
+              ({{vote_average}}/10)  
+              <h4> Genres:</h4>
+              <p><ul> {{#genres}} 
+                <li genre-id={{id}} class="genres"> {{name}} </li>
+              {{/genres}} </ul></p>
+            </div>  
+          </div>
+        </div>         
         {{/results}}
+       
   </script>
   
+
 <div class="container mt-5">
+    <div class="loading text-center"> <i class="fa fa-circle-notch fa-spin"></i> Loading </div>
+    <div class="no-movies text-center hidden"> No movies found for the search criteria. Please try another search. </div>
     <div id="handlebars-movie-container" class="row no-gutters">
     </div>
 </div>
