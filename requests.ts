@@ -2,7 +2,7 @@ import {changeMovieTemplate, resetMovieTemplate, showLoading, hideLoading,showMo
 require('handlebars');
 
 /**
- * Request movies from the server using "title" as a search
+ * Request movies from the server using "title" as a search filter
  * @param title movie title (partial)
  * @param page page number to load (defaults to 1 if omitted)
  */
@@ -13,7 +13,7 @@ export function requestMovieByTitle(title:string, page:number = 1, contentMethod
 
 /**
  * Request movies from the server using a specified filter
- * @param filter movie filter like "popular", "latest", "top_rated", etc
+ * @param filter movie filter like "popular", "latest", "top_rated", movie by ID, etc
  * @param page page number to load (defaults to 1 if omitted)
  */
 export function requestMovieByFilter(filter:string, page:number = 1, contentMethodSetting?:string) {
@@ -21,9 +21,7 @@ export function requestMovieByFilter(filter:string, page:number = 1, contentMeth
     ajaxRequest(urlString,contentMethodSetting);
 };
 
-/**
- * Send an async ajax request to the url specified
- */
+// Send an async ajax request to the url specified
 function ajaxRequest(url:string,contentMethodSetting?:string) {
     let req= $.ajax({
         url: url,
@@ -35,30 +33,31 @@ function ajaxRequest(url:string,contentMethodSetting?:string) {
         }
     })
     .done(function(data) {
-        addStarRating(data);
-        console.log(data);
-        changeMovieTemplate(data,contentMethodSetting);    
+        if (!exceedPageCount(data)) {
+            alterResults(data);
+            console.log(data);
+            changeMovieTemplate(data,contentMethodSetting);
+        }    
     })
-    .fail(function(textStatus) {
-        showMovieNotFound();
-    })
+    .fail( () => showMovieNotFound() )
     .always( () => hideLoading() )
 }
 
-/**
- * Adds an attribute ("star_rating" array according to the average vote rating) to the JSON object returned by themovieDB API 
- */
-function addStarRating(data:any) {
+// Alters some attributes (adds "star_rating" array and adds date information) of the JSON object returned by themovieDB API 
+function alterResults(data:any) {
     if (data.results) {
+        // data.results.release_date = data.results.release_date.slice(0,3);
         data.results.forEach( (result:any) => {
-            addArray(result);
+            result.release_year = result.release_date.slice(0,4);
+            addStarRatingArray(result);
         });
     }
     else {
-        addArray(data);
+        data.release_year = data.release_date.slice(0,4);
+        addStarRatingArray(data);
     }
     
-    function addArray(result:any) {
+    function addStarRatingArray(result:any) {
         let avg = result.vote_average;
             result["star_rating"] = [];
             for (let i=0; i< 10; i++) {
@@ -66,4 +65,8 @@ function addStarRating(data:any) {
                 else result["star_rating"][i] = null
             }
     }
+}
+
+function exceedPageCount(data:any) {
+    return (data.page > data.total_pages)
 }
