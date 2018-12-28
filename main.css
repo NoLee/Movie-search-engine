@@ -4,20 +4,13 @@ body {
     color:#A8D7FF;
 }
 
+h1, h2, h3 {
+    text-align: center;
+    font-weight: 700;
+}
+
 h1 {
-    text-align: center;
-    font-weight: 700;
     margin: 20px;
-}
-
-h2 {
-    text-align: center;
-    font-weight: 700;
-}
-
-h3 {
-    text-align: center;
-    font-weight: 700;
 }
 
 h4 {
@@ -46,15 +39,17 @@ input[type=text]:focus {
 
 .movie-container {
     padding: 20px;
-    margin: 2px;
-    /* border with transparent color so it occupies space (useful for :hover to not move around elements) */
+    margin: 6px 2px;
     border: 3px solid rgba(128,128,128, 0.2);
     border-radius: 5px;
+    height: 1000px;
+    overflow: hidden;
 }
 
 .movie-container:hover {
     border: 3px solid rgba(128,128,128, 0.5);
     cursor: pointer;
+    transform: scale(1.03);
 }
 
 .stars:not(.selected) {
@@ -78,6 +73,7 @@ li.genres {
     background-color: rgba(168, 215, 255, 0.2);
 }
 
-.movie-title {
-    /* font-size */
+.soft-grey {
+    color: grey;
+    opacity: 0.7;
 }

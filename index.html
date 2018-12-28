@@ -44,7 +44,7 @@
           </div>
         {{else}} <!-- We have a single movie-->
         <div class="col-12"> 
-          <h2 class="movie-title"> {{title}}</h3> 
+          <h2 class="movie-title"> {{title}} <span class="soft-grey">({{release_year}})</span> </h3> 
           <div class="row ">            
             <div class="col-5">                 
               {{#if poster_path}} 
@@ -54,6 +54,7 @@
               {{/if}}
             </div>
             <div class="col-7"> 
+              <p class="soft-grey"> <b>Relase date:</b> {{release_date}}<b> | Duration:</b> {{runtime}} min <br>
               <h4> Description: </h4>
               <p> {{overview}}</p>
               <h4> Rating: </h4>
@@ -68,17 +69,15 @@
             </div>  
           </div>
         </div>         
-        {{/results}}
-       
-  </script>
-  
+        {{/results}}       
+  </script>  
 
-<div class="container mt-5">
-    <div class="loading text-center"> <i class="fa fa-circle-notch fa-spin"></i> Loading </div>
-    <div class="no-movies text-center hidden"> No movies found for the search criteria. Please try another search. </div>
-    <div id="handlebars-movie-container" class="row no-gutters">
-    </div>
-</div>
+  <div class="container mt-5">
+      <div class="loading text-center"> <i class="fa fa-circle-notch fa-spin"></i> Loading </div>
+      <div class="no-movies text-center hidden"> No movies found for the search criteria. Please try another search. </div>
+      <div id="handlebars-movie-container" class="row no-gutters">
+      </div>
+  </div>
 
 </body>
 <script src="node_modules/jquery/dist/jquery.js"></script>
