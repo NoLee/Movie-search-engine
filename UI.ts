@@ -16,21 +16,19 @@ export function changeMovieTemplate(data:any, contentMethodSetting?:string):void
         var theCompiledHtml = template(data);
         if (contentMethodSetting === "append") $('#handlebars-movie-container').append(theCompiledHtml);
         else $('#handlebars-movie-container').html(theCompiledHtml);
+        // Add a click event listener for each movie fetched by the API request
         addEventListenerMovies();
     }
 } 
 
-// Show loading indication before fetching the results
 export function showLoading() {
     $('.loading').removeClass('hidden');
 }
 
-// Hide loading indication after fetching the results
 export function hideLoading() {
     $('.loading').addClass('hidden');
 }
 
-// Delete all the movies from screen 
 export function resetMovieTemplate() {
     $('#handlebars-movie-container').html("");
 }
@@ -41,4 +39,8 @@ export function showMovieNotFound() {
 
 export function hideMovieNotFound() {
     $('.no-movies').addClass('hidden');
+}
+
+export function setSearchFieldValue(value:string) {
+    $("#movie-query").val(value);
 }
